@@ -1,3 +1,5 @@
+include thirdparty/maintain/Makefile
+
 update: .gitmodules ## 更新本地代码
 	git submodule foreach --recursive git reset --hard 
 	git submodule foreach --recursive git clean -fdx
@@ -6,7 +8,7 @@ update: .gitmodules ## 更新本地代码
 	git submodule update --remote
 	# git submodule foreach  --recursive 'tag="$$(git config -f $$toplevel/.gitmodules submodule.$$name.tag)";[ -n $$tag ] && git reset --hard  $$tag || echo "this module has no tag"'
 
-build: main.go Dockerfile version ## 编译成docker镜像
+build: protos_build main.go Dockerfile version ## 编译成docker镜像
 	# 拉取基础编译镜像
 	$(DOCKER_PULL) $(DOCKERHUBPULLHOST)/$(BUILDIMAGE) || true
 	# 编译
@@ -23,11 +25,11 @@ run: main.go ## 本机运行
 
 release: ## 打包
 
-linux: protos main.go ## 编译成linux环境下运行文件
+linux: main.go ## 编译成linux环境下运行文件
 	GOOS=linux $(GO_BUILD) -o ./bin/$(SERVICE_NAME_LINUX) .
-mac: protos main.go ## 编译成mac环境下运行文件
+mac: main.go ## 编译成mac环境下运行文件
 	GOOS=darwin $(GO_BUILD) -o ./bin/$(SERVICE_NAME_MAC) .
-windows: protos main.go ## 编译成windows环境下运行文件
+windows: main.go ## 编译成windows环境下运行文件
 	GOOS=windows $(GO_BUILD) -o ./bin/$(SERVICE_NAME_WIN) .
 
 test: ## 运行测试用例
@@ -39,7 +41,7 @@ onebox: docker-compose.yaml version ## onebox环境部署
 onebox_down: docker-compose.yaml version ## onebox环境卸载
 	docker-compose -p $(NAME_SPACE) down || true
 
-protos: ## 协议文件编译
+protos_build: ## 协议文件编译
 	make -C thirdparty/protos-repo build
  
 onebox_restart: onebox_down onebox ## onebox环境重启

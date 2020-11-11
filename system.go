@@ -6,9 +6,9 @@ package main
 import (
 	"fmt"
 
+	"github.com/go-chassis/go-archaius"
 	_ "github.com/go-chassis/go-archaius/source/remote/kie"
 	"github.com/go-chassis/openlog"
-	"github.com/wksw/go-archaius"
 
 	_ "github.com/wksw/go-chassis-demo/handlers"
 )
