@@ -1,0 +1,10 @@
+servicecomb:
+  service:
+    # 微服务名称
+    name: go_chassis_demo
+    app: passport
+    # development|testing|acceptance|production
+    environment: development
+    version: 0.0.1
+    instanceProperties:
+    properties:

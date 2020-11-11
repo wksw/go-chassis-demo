@@ -1,0 +1,6 @@
+[submodule "thirdparty/maintain"]
+	path = thirdparty/maintain
+	url = https://github.com/wksw/maintain.git
+[submodule "thirdparty/protos-repo"]
+	path = thirdparty/protos-repo
+	url = https://github.com/wksw/protos-repo.git

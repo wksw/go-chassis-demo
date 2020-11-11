@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  # 网关服务
+  go_chassis_demo:
+    image: ${SERVICE_IMAGE}
+    restart: always
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "10"
+    volumes:
+      - "./conf_onebox/:/workspace/conf/:ro"
+    ports:
+      - 9091:9091
+    external_links:
+      - passport_service-center_1:service-center
+      - passport_servicecomb-kie_1:servicecomb-kie

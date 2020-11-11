@@ -1,0 +1,33 @@
+---
+servicecomb:
+  # 配置中心
+  config:
+    client:
+      # 配置中心地址
+      serverUri: http://servicecomb-kie:30110
+      # 配置中心类型
+      type: kie
+      # 是否启用
+      enabled: true
+      # 配置刷新类型, 0-websocket或1-pull
+      refreshMode: 1
+      # 
+      refreshPort: "30110"
+      autodiscovery: false
+      api:
+        # api版本，无需修修改
+        version: v1
+      # 配置刷新间隔
+      refreshInterval: 10
+      dimension:
+        version: 0.0.1
+  # 注册中心
+  registry:
+    address: http://service-center:30100
+    refreshInterval: 5s
+  protocols:
+    rest:
+      listenAddress: 0.0.0.0:9091
+    grpc:
+      listenAddress: 0.0.0.0:9092
+  noRefreshSchema: true
